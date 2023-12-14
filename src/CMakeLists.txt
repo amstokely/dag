@@ -1,3 +1,4 @@
+
 ADD_LIBRARY(
         libdag
         SHARED
@@ -11,11 +12,14 @@ SET_TARGET_PROPERTIES(
         LINK_LIBRARIES ${LIBDAG_LINK_LIBRARIES}
         )
 
+TARGET_INCLUDE_DIRECTORIES(libdag PUBLIC "${INCLUDE_DIRS}")
+
 ADD_LIBRARY(
         libgraph_utils
         SHARED
         ${CMAKE_CURRENT_SOURCE_DIR}/graph_utils.c
         )
+TARGET_INCLUDE_DIRECTORIES(libgraph_utils PUBLIC "${INCLUDE_DIRS}")
 SET_TARGET_PROPERTIES(
         libgraph_utils
         PROPERTIES

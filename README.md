@@ -7,37 +7,41 @@ An exercise in detecting cycles in digraphs
 
 ---
 1. Clone the repository:
-```bash
-git clone https://github.com/amstokely/dag.git
-````
-2. Navigate into the project's root directory:
-```bash
-cd dag
-```
-3. Install CMake if it is not already installed:
-```bash
-sudo apt-get install cmake
-```
-of if you have conda installed:
-```bash
-conda install -c conda-forge cmake
-```
-4. If building the Python interface, install SWIG and NumPy with either pip or conda:
-```bash
-pip install numpy swig
-```
-5. Create a build directory and navigate into it:
-```bash
-mkdir build && cd build
-```
-6. Run CMake to configure the build:
-```bash
-cmake ..
-```
-7. Build the project:
-```bash
-cmake --build . -j
-```
+    ```bash
+    git clone https://github.com/amstokely/dag.git
+    ````
+1. Navigate into the project's root directory:
+    ```bash
+    cd dag
+    ```
+1. Install CMake if it is not already installed:
+    ```bash
+    sudo apt-get install cmake
+    ```
+    If you have conda installed, you can install cmake via: 
+    ```bash
+    conda install -c conda-forge cmake
+    ```
+1. Create a build directory and navigate into it:
+    ```bash
+    mkdir build && cd build
+    ```
+1. If building the Python interface, install SWIG and NumPy with either pip or conda:
+    ```bash
+    pip install numpy swig
+    ```
+   and set an environment variable: ***FLAGS***, equal to the following:
+    ```bash
+    FLAGS="-DBUILD_PYTHON_BINDINGS=ON"
+   ```    
+1. Run CMake to configure the build:
+    ```bash
+    cmake ${FLAGS} ..
+    ```
+1. Build the project:
+    ```bash
+    cmake --build . -j
+    ```
 ---
 
 ## Usage

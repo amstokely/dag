@@ -1,4 +1,3 @@
-
 set(CLEAN_FILES_AND_DIRS
         ${CMAKE_CURRENT_SOURCE_DIR}/lib/*
         )
@@ -11,6 +10,8 @@ add_library(
         cnpy SHARED
         ${CMAKE_CURRENT_SOURCE_DIR}/src/cnpy.cpp
 )
+TARGET_INCLUDE_DIRECTORIES(cnpy PUBLIC "${INCLUDE_DIRS}")
+
 set_target_properties(
         cnpy
         PROPERTIES
