@@ -35,14 +35,14 @@ int main(
          * the adjacency matrix variable, a, the third argument is a pointer to the number variable that
          * stores the number of rows, m, and the fourth argument is a pointer to the number variable that
          * stores the number of columns, n. */
-        loadNpy(
+        DAG::loadNpy(
                 entry.path(),
                 &a,
                 &m,
                 &n
         );
         /* Print whether the graph is a DAG */
-        std::string isDAG = isDAGAdjacencyMatrix(
+        std::string isDAG = DAG::isDAGAdjacencyMatrix(
                 (const int
                 **) a,
                 m

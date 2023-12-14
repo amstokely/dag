@@ -33,3 +33,11 @@
          LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/python/dag
          LINK_LIBRARIES "${PYTHON_LIBDAG_LINK_LIBRARIES}"
          )
+ SET(PIP_UNINSTALL_PIP_ARGS "uninstall" "dag" "-y")
+ SET(PYTHON_PIP_INSTALL_ARGS "setup.py" "install")
+ ADD_CUSTOM_TARGET(PythonInstall
+                   COMMAND pip ${PIP_UNINSTALL_PIP_ARGS}
+                   COMMAND ${Python3_EXECUTABLE} ${PYTHON_PIP_INSTALL_ARGS}
+                   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/python
+                   )
+

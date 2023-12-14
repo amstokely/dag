@@ -3,25 +3,30 @@
 %}
 
 %inline %{
-    int isDAGBitArray(
+    namespace DAG{
+            int isDAGBitArray(
             int *IN_ARRAY1,
             int DIM1
-    ) {
-        auto diagraph = new uint32_t[DIM1];
-        for (int i = 0; i < DIM1; ++i) {
-            diagraph[i] = IN_ARRAY1[i];
-        }
-        int result = isDAGBitArray(
-                diagraph,
-                DIM1
-        );
-        delete[] diagraph;
-        return result;
+            ) {
+                auto diagraph = new
+                uint32_t[DIM1];
+                for (int i = 0; i < DIM1; ++i) {
+                    diagraph[i] = IN_ARRAY1[i];
+                }
+                int result = isDAGBitArray(
+                        diagraph,
+                        DIM1
+                );
+                delete[]
+                diagraph;
+                return result;
+            }
     }
 %}
 
 
 %inline %{
+    namespace DAG {
 int isDAGAdjacencyMatrix(
         int *IN_ARRAY2,
         int DIM1,
@@ -43,5 +48,5 @@ int isDAGAdjacencyMatrix(
     }
     delete[] adjacencyMatrix;
     return result;
-}
+}}
 %}
