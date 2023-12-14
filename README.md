@@ -3,6 +3,63 @@ An exercise in detecting cycles in digraphs
 
 -----
 
+## Installation
+
+---
+1. Clone the repository:
+```bash
+git clone https://github.com/amstokely/dag.git
+````
+2. Navigate into the project's root directory:
+```bash
+cd dag
+```
+3. Install CMake if it is not already installed:
+```bash
+sudo apt-get install cmake
+```
+of if you have conda installed:
+```bash
+conda install -c conda-forge cmake
+```
+4. If building the Python interface, install SWIG and NumPy with either pip or conda:
+```bash
+pip install numpy swig
+```
+5. Create a build directory and navigate into it:
+```bash
+mkdir build && cd build
+```
+6. Run CMake to configure the build:
+```bash
+cmake ..
+```
+7. Build the project:
+```bash
+cmake --build . -j
+```
+---
+
+## Usage
+
+---
+To run all the test graph examples, navigate into the project's root
+directory and set an environment variable equal to the current working
+directory:
+```bash
+export DAG_ROOT_DIR=$(pwd)
+```
+Now navigate into the bin directory
+```bash
+cd $DAG_ROOT_DIR/bin
+```
+and execute the following command:
+```bash
+for graph in $DAG_ROOT_DIR/test_graphs/*; do ./dag $graph; done
+```
+
+---
+
 Let $G = (V,E)$ be a directed graph (*digraph*) with vertex set $V$ and edge set $E$. Each
 directed edge $e \in E$ is an ordered pair of vertices $(v_1,v_2)$, with $v_1, v_2 \in V$. Note that a
 directed edge from a vertex $v_i$ to itself, i.e., an edge $(v_i,v_i)$, is permissible. Fig. 1 shows
