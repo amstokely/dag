@@ -35,11 +35,8 @@ int main(
             );
             return 1;
         }
-        //is_dag(digraph, n_vertices) ? printf("1\n") : printf("0\n");
-        for (int j = 0; j < n_vertices; ++j) {
-            printf("%u ", digraph[j]);
-        }
-        printf("\n");
+        is_dag(digraph, n_vertices) ? printf("1 n") : printf("0 ");
+        printf("%s\n", argv[i]);
         free(digraph);
     }
 
