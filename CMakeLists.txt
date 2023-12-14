@@ -8,6 +8,8 @@ INCLUDE(${SWIG_USE_FILE})
 
 FIND_PACKAGE(Python3 REQUIRED COMPONENTS Interpreter Development NumPy)
 
+FIND_PACKAGE(ZLIB REQUIRED)
+
 SET_SOURCE_FILES_PROPERTIES(
         ${CMAKE_SOURCE_DIR}/swig/python_dag.i
         PROPERTIES
@@ -19,6 +21,7 @@ SET(
         ${Python3_INCLUDE_DIRS}
         ${Python3_NumPy_INCLUDE_DIRS}
         ${CMAKE_SOURCE_DIR}/include
+        ${CMAKE_SOURCE_DIR}/cnpy/include
         )
 
 INCLUDE_DIRECTORIES("${INCLUDE_DIRS}")
@@ -28,50 +31,26 @@ SET(
         ${ZLIB_LIBRARIES}
         )
 
-ADD_LIBRARY(
-        libdag
-        SHARED
-        ${CMAKE_SOURCE_DIR}/src/is_dag.cpp
-        )
-SET_TARGET_PROPERTIES(
-        libdag
-        PROPERTIES
-        LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib
+SET(
+        LIBDAG_LINK_LIBRARIES
+        cnpy
         )
 
-LINK_LIBRARIES(libdag)
+SET(DAG_LINK_LIBRARIES
+    libdag libgraph_utils
+    )
 
-ADD_LIBRARY(
-        libgraph_utils
-        SHARED
-        ${CMAKE_SOURCE_DIR}/src/graph_utils.c
-        )
-SET_TARGET_PROPERTIES(
-        libgraph_utils
-        PROPERTIES
-        LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib
-        )
+SET(NUMPY_DAG_LINK_LIBRARIES
+    ${LIBDAG_LINK_LIBRARIES}
+    libdag
+    )
 
-SWIG_ADD_LIBRARY(
-        libpython_dag
-        LANGUAGE python
-        OUTPUT_DIR ${CMAKE_SOURCE_DIR}/python
-        OUTFILE_DIR ${CMAKE_SOURCE_DIR}/python
-        SOURCES ${CMAKE_SOURCE_DIR}/swig/python_dag.i
-        )
-SET_TARGET_PROPERTIES(
-        libpython_dag
-        PROPERTIES
-        LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/python
-        )
+SET(PYTHON_LIBDAG_LINK_LIBRARIES libdag ${Python3_LIBRARIES} ${LIBDAG_LINK_LIBRARIES})
 
-LINK_LIBRARIES(libgraph_utils)
-ADD_EXECUTABLE(
-        dag
-        ${CMAKE_SOURCE_DIR}/main.c
-        )
-SET_TARGET_PROPERTIES(
-        dag
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin
-        )
+ADD_SUBDIRECTORY(${CMAKE_SOURCE_DIR}/cnpy)
+
+ADD_SUBDIRECTORY(${CMAKE_SOURCE_DIR}/src)
+
+ADD_SUBDIRECTORY(${CMAKE_SOURCE_DIR}/swig)
+
+ADD_SUBDIRECTORY(${CMAKE_SOURCE_DIR}/examples)
