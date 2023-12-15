@@ -46,7 +46,7 @@ An exercise in detecting cycles in digraphs
     ```
 1. Build the Python interface:
     ```bash
-    cmake --build . --target python -j
+    make PythonInstall
     ```
 1. Run the C++ tests:
     ```bash
