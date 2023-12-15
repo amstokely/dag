@@ -1,7 +1,7 @@
 
 ADD_EXECUTABLE(
         dag
-        ${CMAKE_CURRENT_SOURCE_DIR}/main.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/bitarray_dag.c
         )
 ADD_DEPENDENCIES(dag libdag libgraph_utils)
 SET_TARGET_PROPERTIES(
