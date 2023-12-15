@@ -3,6 +3,16 @@ SET(CMAKE_BUILD_TYPE Release)
 PROJECT(dag LANGUAGES CXX C)
 SET(CMAKE_CXX_STANDARD 17)
 
+
+INCLUDE(FetchContent)
+FETCHCONTENT_DECLARE(
+        googletest
+        URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+        )
+FETCHCONTENT_MAKEAVAILABLE(googletest)
+
+ENABLE_TESTING()
+
 SET(BUILD_PYTHON_BINDINGS OFF CACHE BOOL "Build Python bindings")
 
 SET(GENERATE_DOCS OFF CACHE BOOL "Generate documentation")
@@ -44,6 +54,8 @@ IF (${BUILD_PYTHON_BINDINGS})
 ENDIF (${BUILD_PYTHON_BINDINGS})
 
 ADD_SUBDIRECTORY(${CMAKE_SOURCE_DIR}/examples)
+
+ADD_SUBDIRECTORY(${CMAKE_SOURCE_DIR}/tests/cpp)
 
 IF (${GENERATE_DOCS})
     #Make sure sure Doxygen is installed for building documentation

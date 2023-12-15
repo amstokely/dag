@@ -89,12 +89,14 @@ namespace DAG {
                         numVertices
                 )) {
                     // If a cycle is found, the graph is not a DAG.
+                    // Delete the visited array and return 0.
+                    delete[]visited;
                     return 0;
                 }
             }
         }
-
         // If no cycles are found in any DFS, the graph is a DAG.
+        // Delete the visited array and return 1.
         return 1;
     }
 
@@ -187,12 +189,14 @@ namespace DAG {
                         numVertices
                 )) {
                     // If a cycle is found, the graph is not a DAG.
+                    // Delete the visited array and return 0.
                     return 0;
                 }
             }
         }
 
         // If no cycles are found in any DFS, the graph is a DAG.
+        // Delete the visited array and return 1.
         return 1;
     }
 

@@ -1,4 +1,5 @@
 # dag-problem
+
 An exercise in detecting cycles in digraphs
 
 -----
@@ -6,6 +7,7 @@ An exercise in detecting cycles in digraphs
 ## Installation
 
 ---
+
 1. Clone the repository:
     ```bash
     git clone https://github.com/amstokely/dag.git
@@ -18,7 +20,7 @@ An exercise in detecting cycles in digraphs
     ```bash
     sudo apt-get install cmake
     ```
-    If you have conda installed, you can install cmake via: 
+   If you have conda installed, you can install cmake via:
     ```bash
     conda install -c conda-forge cmake
     ```
@@ -26,9 +28,9 @@ An exercise in detecting cycles in digraphs
     ```bash
     mkdir build && cd build
     ```
-1. If building the Python interface, install SWIG and NumPy with either pip or conda:
+1. If building the Python interface, install SWIG, pytest, networkx, and NumPy with either pip or conda:
     ```bash
-    pip install numpy swig
+    pip install numpy swig pytest networkx
     ```
    and set an environment variable: ***FLAGS***, equal to the following:
     ```bash
@@ -42,6 +44,20 @@ An exercise in detecting cycles in digraphs
     ```bash
     cmake --build . -j
     ```
+1. Build the Python interface:
+    ```bash
+    cmake --build . --target python -j
+    ```
+1. Run the C++ tests:
+    ```bash
+    ctest
+    ```
+1. Run the Python tests
+   ```bash
+   cd ..
+   pytest
+   ```
+
 ---
 
 ## Usage
@@ -50,17 +66,37 @@ An exercise in detecting cycles in digraphs
 To run all the test graph examples, navigate into the project's root
 directory and set an environment variable equal to the current working
 directory:
+
 ```bash
 export DAG_ROOT_DIR=$(pwd)
 ```
+
 Now navigate into the bin directory
+
 ```bash
 cd $DAG_ROOT_DIR/bin
 ```
+
 and execute the following command:
+
 ```bash
 for graph in $DAG_ROOT_DIR/test_graphs/*; do ./dag $graph; done
 ```
+
+To check if a NumPy adjacency matrix is a DAG using the Python interface,
+simply import the dag module:
+    
+```python
+import dag
+```
+and call the isDAGAdjacencyMatrix of isDAGBitArray function depending on
+if the numpy array is a standard adjacency matrix or a bitwise adjacency
+matrix, respectively.
+```python
+print(dag.isDAGAdjacencyMatrix(adjacency_matrix))
+```
+Here, adjacency_matrix is a int32 NumPy array that represents a
+directed graph.
 
 ---
 
@@ -113,9 +149,11 @@ and each element $i$ of the array stores the adjacency list for vertex $v_i$.
 
 The function to determine whether a digraph is a dag has the following
 prototype:
+
 ```c
 int is_dag(uint32_t digraph[], int n_vertices);
 ```
+
 This function takes as input an adjacency list representation of a digraph
 and the number of vertices in the graph. The size of the `digraph` array is
 `n_vertices`, with `n_vertices` at most 32. The function returns 1 if the given

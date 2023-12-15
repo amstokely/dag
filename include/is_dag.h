@@ -4,7 +4,38 @@
 /*!
  * @namespace DAG
  * @brief Contains functions for checking if a graph is a DAG.
+ * Directed Graph Cycle Detection Using Depth-First Search (DFS) Algorithm
+ *
+ * This algorithm is designed to detect cycles in a directed graph using DFS and is also capable of determining if
+ * the graph is a Directed Acyclic Graph (DAG).
+ * It involves two main functions: isCyclic and isDAG.
+ *
+ * Summary of the Algorithm:
+ * 1. Initialization:
+ *    - A 'visited' array marks nodes as visited or unvisited.
+ *    - An 'inStack' array tracks nodes in the current DFS path for cycle detection.
+ *
+ * 2. Depth-First Search (DFS):
+ *    - The DFS begins at a starting node and uses a stack to track the traversal path.
+ *
+ * 3. Traversal and Cycle Detection:
+ *    - Visited nodes are marked and added to 'inStack'.
+ *    - The DFS explores adjacent nodes per the adjacency matrix.
+ *    - If an unvisited node is found, DFS goes deeper with that node.
+ *
+ * 4. Checking for Cycles:
+ *    - If a node in 'inStack' is revisited, a cycle is detected, indicating the graph is not acyclic.
+ *
+ * 5. Backtracking:
+ *    - On reaching a dead-end, backtrack by removing the node from 'inStack' and DFS path.
+ *    - Continue until all nodes are visited or a cycle is found.
+ *
+ * 6. Determining Acyclicity (isDAG):
+ *    - To check if the graph is a DAG, run cycle detection from each unvisited vertex.
+ *    - If any run detects a cycle, the graph is not a DAG.
+ *    - If no cycles are found, the graph is a DAG.
  */
+
 namespace DAG {
 /*!
  * @brief Checks if the given adjacency matrix, which is stored as a 2D array,
